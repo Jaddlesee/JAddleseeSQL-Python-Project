@@ -1,0 +1,4 @@
+membership_tier,monthly_cost,pContent_access,discount_access,pApp_access,helper_access
+Platinum,14.99,TRUE,TRUE,TRUE,TRUE
+Gold,9.99,FALSE,TRUE,TRUE,TRUE
+Silver,4.49,FALSE,FALSE,FALSE,TRUE
