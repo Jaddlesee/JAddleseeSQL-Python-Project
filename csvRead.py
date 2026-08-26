@@ -24,7 +24,8 @@ if (customerData["age"] < 0).any():
 customerData["member_since"] = pandas.to_datetime(customerData["member_since"], format='%Y/%m/%d')
 #python recognises the date format as a string so this manually converts it to a date format
 
-# print(customerData.dtypes)
+print(membershipData.dtypes)
+print(membershipData.columns.tolist())
 # type check
 
 connection = mysql.connector.connect(
@@ -33,8 +34,8 @@ connection = mysql.connector.connect(
     password=os.getenv("MYSQL_PASSWORD"),
     database="membAnalysis"
 )
-
-print("Successfully connected to MySQL!")
+#checking it connects to the database
+#print("Successfully connected to MySQL!")
 
 SQLcursor = connection.cursor();
 SQL = """INSERT INTO members (member_id, first_name, last_name, age, email, member_since, membership_status, membership_level) 
@@ -47,10 +48,35 @@ values = [];
 for _, row in customerData.iterrows(): 
    values.append((int(row['member_id']), row['first_name'], row['last_name'], int(row['age']), row['email'], row['member_since'].date(), row['membership_status'], row['membership_level']))
 
+
+tierSQL = """
+INSERT INTO membTiers (
+    tier_name,
+    monthly_price,
+    pContent_access,
+    discount_access,
+    pApp_access,
+    helper_access
+)
+VALUES (%s, %s, %s, %s, %s, %s)
+"""
+tierValues = []
+for _, row in membershipData.iterrows():
+    tierValues.append((
+        row["membership_tier"],
+        float(row["monthly_cost"]),
+        row["pContent_access"],
+        row["discount_access"],
+        row["pApp_access"],
+        row["helper_access"]
+    ))
+
+
+SQLcursor.executemany(tierSQL, tierValues)
 SQLcursor.executemany(SQL, values)
 print("Rows processed:", SQLcursor.rowcount)
 
 
 connection.commit()
-
-print("Data committed")
+# commit the additions to the database
+#print("Data committed")

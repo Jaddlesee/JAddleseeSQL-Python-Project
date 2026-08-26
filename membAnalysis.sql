@@ -1,5 +1,17 @@
 CREATE DATABASE IF NOT exists membAnalysis ;
 USE membAnalysis;
+SET SQL_SAFE_UPDATES = 1;
+CREATE TABLE IF NOT exists membTiers (
+	tier_id INT PRIMARY KEY auto_increment,
+    tier_name VARCHAR(50),
+    monthly_price DECIMAL(10,2) NOT NULL,
+    content_access boolean,
+    discount_access boolean,
+    app_access boolean,
+    helper_access boolean
+    
+);
+
 
 CREATE TABLE IF NOT exists members (
     member_id INT PRIMARY KEY,
@@ -11,4 +23,10 @@ CREATE TABLE IF NOT exists members (
     membership_status VARCHAR(20),
     membership_level VARCHAR(20)
 );
-SELECT COUNT(*) FROM members;
+
+SELECT
+    COUNT(*) AS mismatched_members
+FROM members AS m
+JOIN membTiers AS t
+    ON m.tier_id = t.tier_id
+WHERE m.membership_level <> t.tier_name;
