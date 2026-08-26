@@ -24,9 +24,4 @@ CREATE TABLE IF NOT exists members (
     membership_level VARCHAR(20)
 );
 
-SELECT
-    COUNT(*) AS mismatched_members
-FROM members AS m
-JOIN membTiers AS t
-    ON m.tier_id = t.tier_id
-WHERE m.membership_level <> t.tier_name;
+SELECT * FROM members

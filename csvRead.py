@@ -24,9 +24,6 @@ if (customerData["age"] < 0).any():
 customerData["member_since"] = pandas.to_datetime(customerData["member_since"], format='%Y/%m/%d')
 #python recognises the date format as a string so this manually converts it to a date format
 
-print(membershipData.dtypes)
-print(membershipData.columns.tolist())
-# type check
 
 connection = mysql.connector.connect(
     host="localhost",
