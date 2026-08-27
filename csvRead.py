@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
+"""
 pandas.options.display.max_rows = None
 
 customerData = pandas.read_csv('D:\\SQL-Python-Project\\JAddleseeSQL-Python-Project\\mockdata\\Customers.csv')
@@ -23,7 +23,7 @@ if (customerData["age"] < 0).any():
 
 customerData["member_since"] = pandas.to_datetime(customerData["member_since"], format='%Y/%m/%d')
 #python recognises the date format as a string so this manually converts it to a date format
-
+"""
 
 connection = mysql.connector.connect(
     host="localhost",
@@ -35,6 +35,8 @@ connection = mysql.connector.connect(
 #print("Successfully connected to MySQL!")
 
 SQLcursor = connection.cursor();
+#connection variable
+
 """SQL = ""INSERT INTO members (member_id, first_name, last_name, age, email, member_since, membership_status, membership_level) 
 VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""
 
