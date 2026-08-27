@@ -22,3 +22,8 @@ Using python and SQL in conjuction I've created a pipeline wherein the raw csv f
 
 ## SQL Analysis
 
+[Members By Tier](https://github.com/Jaddlesee/JAddleseeSQL-Python-Project/blob/main/QueryResults/membersByTier.csv)
+
+[Active Subscriptions and Estimated Monthly Income](https://github.com/Jaddlesee/JAddleseeSQL-Python-Project/blob/main/QueryResults/activeMembersAndExpectedIncome.csv)
+
+[Oldest 10 Members](https://github.com/Jaddlesee/JAddleseeSQL-Python-Project/blob/main/QueryResults/oldestMembers.csv)
