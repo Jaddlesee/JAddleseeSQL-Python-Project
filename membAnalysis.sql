@@ -4,7 +4,7 @@ SET SQL_SAFE_UPDATES = 1;
 CREATE TABLE IF NOT exists membTiers (
 	tier_id INT PRIMARY KEY auto_increment,
     tier_name VARCHAR(50),
-    monthly_price DECIMAL(10,2) NOT NULL,
+    monthly_price DECIMAL(10,2),
     content_access boolean,
     discount_access boolean,
     app_access boolean,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT exists members (
     member_id INT PRIMARY KEY,
     first_name VARCHAR(100),
     last_name VARCHAR(100) ,
-    age INT NOT NULL,
+    age INT,
     email VARCHAR(255),
     member_since DATE,
     membership_status VARCHAR(20),
