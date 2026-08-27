@@ -35,8 +35,8 @@ connection = mysql.connector.connect(
 #print("Successfully connected to MySQL!")
 
 SQLcursor = connection.cursor();
-SQL = """INSERT INTO members (member_id, first_name, last_name, age, email, member_since, membership_status, membership_level) 
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
+"""SQL = ""INSERT INTO members (member_id, first_name, last_name, age, email, member_since, membership_status, membership_level) 
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""
 
 print("Rows in dataframe:", len(customerData))
 
@@ -46,7 +46,7 @@ for _, row in customerData.iterrows():
    values.append((int(row['member_id']), row['first_name'], row['last_name'], int(row['age']), row['email'], row['member_since'].date(), row['membership_status'], row['membership_level']))
 
 
-tierSQL = """
+tierSQL = ""
 INSERT INTO membTiers (
     tier_name,
     monthly_price,
@@ -56,7 +56,7 @@ INSERT INTO membTiers (
     helper_access
 )
 VALUES (%s, %s, %s, %s, %s, %s)
-"""
+""
 tierValues = []
 for _, row in membershipData.iterrows():
     tierValues.append((
@@ -72,8 +72,22 @@ for _, row in membershipData.iterrows():
 SQLcursor.executemany(tierSQL, tierValues)
 SQLcursor.executemany(SQL, values)
 print("Rows processed:", SQLcursor.rowcount)
+"""
+query = """SELECT
+    t.tier_name AS MembershipTier,
+    COUNT(m.member_id) AS MemberCount
+FROM membTiers t
+LEFT JOIN members m
+    ON m.tier_id = t.tier_id
+GROUP BY t.tier_id, t.tier_name"""
 
+SQLcursor.execute(query)
+results = SQLcursor.fetchall()
+for row in results:
+    tier = row[0]
+    count = row[1]
+    print(f"{tier}: {count} members")
 
-connection.commit()
+#connection.commit()
 # commit the additions to the database
 #print("Data committed")

@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT exists membAnalysis ;
 USE membAnalysis;
-SET SQL_SAFE_UPDATES = 1;
+
 CREATE TABLE IF NOT exists membTiers (
 	tier_id INT PRIMARY KEY auto_increment,
     tier_name VARCHAR(50),
